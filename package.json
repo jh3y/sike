@@ -1,11 +1,11 @@
 {
   "name": "sike",
   "description": "a cli app that reminds you to move around every once in a while!",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "http://jh3y.github.io/sike",
   "author": {
     "name": "jh3y",
-    "email": "jh3y@live.co.uk",
+    "email": "jh3y@users.noreply.github.com",
     "url": "http://jh3y.github.io"
   },
   "repository": {
@@ -21,13 +21,15 @@
     }
   ],
   "preferGlobal": true,
+  "bin": {
+    "sike": "lib/sike.js"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
-  "devDependencies": {
+  "dependencies": {
     "commander": "^2.2.0",
     "moment": "^2.6.0",
-    "cli-color": "^0.2.3",
     "colors": "^0.6.2"
   },
   "keywords": []
