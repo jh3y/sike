@@ -3,6 +3,9 @@ sike
 
 a cli app that reminds you to move around every once in a while!
 
+
+	sike -i 2h -m "Go grab a coffee! You've earnt it."
+
 ##what is sike?
 sike is a node cli tool that alerts you at set intervals, a set duration or a set time to get up and be active for a few minutes.
 
