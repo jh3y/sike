@@ -26,7 +26,9 @@
   },
   "devDependencies": {
     "commander": "^2.2.0",
-    "moment": "^2.6.0"
+    "moment": "^2.6.0",
+    "cli-color": "^0.2.3",
+    "colors": "^0.6.2"
   },
   "keywords": []
 }

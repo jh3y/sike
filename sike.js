@@ -1,26 +1,25 @@
 #!/usr/bin/env node
-
-// SIKE
-
-/**
- * Module dependencies.
- */
 var program = require('commander'),
 	moment = require('moment'),
+	colors = require('colors'),
+	pkg = require('./package.json'),
 	defaults = {
 		bells: 2,
-		interval: "10s",
-		message: "Go grab a coffee!",
-		timeMessage: "Time for lunch!"
-	};
+		message: "Get up and move around!",
+		timeMessage: "Time to move about!"
+	},
+	sikelog,
+	introduce,
+	processTimeString;
 program
-	.version('0.0.1')
-	.option('-i, --interval [interval]', 'Set alert interval')
-	.option('-d, --duration [duration]', 'Set duration to alert')
-	.option('-t, --time [time]', 'Set alert time')
-	.option('-m, --message [message]', 'Set interval message')
-	.option('--timeMessage [timeMessage]', 'Set time message')
-	.option('-b, --bells [bells]', 'Set number of bells on alert.');
+	.version(pkg.version)
+	.option('-i, --interval [interval]', 'sets alert interval')
+	.option('-d, --duration [duration]', 'sets duration until alert')
+	.option('-t, --time [time]', 'sets alert time')
+	.option('-m, --message [message]', 'sets interval message')
+	.option('--timeMessage [timeMessage]', 'sets time message')
+	.option('--dontShowTimestamp', 'defines whether timestamp message is shown with alerts')
+	.option('-b, --bells [bells]', 'set number of bells on alert.');
 program.on('--help', function(){
 	console.log('  Examples:');
 	console.log('');
@@ -39,11 +38,11 @@ program.on('--help', function(){
 });
 program.parse(process.argv);
 
-/* processInterval(string)
+/* processTimeString(string)
  * processes the given interval string and returns the timeout interval.
  */
-var processInterval = function (intervalString) {
-	var interval = 0,
+processTimeString = function (timeString) {
+	var time = 0,
 		settings = {},
 		defaultUnit = "s",
 		units = {
@@ -51,51 +50,72 @@ var processInterval = function (intervalString) {
 			"minutes": /h*(\d*)m/,
 			"seconds": /m*(\d*)s/
 		};
-	if (intervalString.indexOf("h") === -1 && intervalString.indexOf("m") === -1 && intervalString.indexOf("s") === -1) {
-		intervalString += defaultUnit;
+	if (timeString.indexOf("h") === -1 && timeString.indexOf("m") === -1 && timeString.indexOf("s") === -1) {
+		timeString += defaultUnit;
 	}
 	for(unit in units) {
-		if (intervalString.indexOf(unit.substr(0,1)) !== -1) {
-			settings[unit] = (intervalString.match(units[unit])[1] !== null) ? parseInt(intervalString.match(units[unit])[1], 10): false; 
+		if (timeString.indexOf(unit.substr(0,1)) !== -1) {
+			settings[unit] = (timeString.match(units[unit])[1] !== null) ? parseInt(timeString.match(units[unit])[1], 10): false; 
 			if (settings[unit] && typeof(settings[unit]) === "number") {
 				switch(unit) {
 					case "hours":
-						interval = interval + (settings.hours * 3600000);
+						time = time + (settings.hours * 3600000);
 						break;
 					case "minutes":
-						interval = interval + (settings.minutes * 60000);
+						time = time + (settings.minutes * 60000);
 						break;
 					case "seconds":
-						interval = interval + (settings.seconds * 1000);
+						time = time + (settings.seconds * 1000);
 						break;
 				}
 			} else {
-				console.error('sike: INVALID TIME INTERVAL STRING');
+				console.error('sike: INVALID TIME STRING');
 			}
 		}
 	}
-	return interval;
+	return time;
 };
-
+introduce = function () {
+	console.log("");
+	console.log("             ===============            ".grey + "sike".red);
+	console.log("         |   ('     ___      ')         ".grey + "v:".red + pkg.version.red);
+	console.log("         |         \\---/                ".grey);
+	console.log("");
+}
+sikelog = function (msg, bells, timestamp) {
+	if (bells) {
+		for (var i = 0; i < program.bells; i++) {
+			console.log('\u0007');
+		};
+	}
+	((timestamp) ? console.log("[", "sike".magenta, "]", msg.cyan): console.log("[", "sike".magenta, "]", msg.cyan + ".".cyan, "It's".blue , moment().format("h:mm a").blue + ".".blue));
+}
+introduce();
+if (process.argv.length === 2) {
+	sikelog('check out help with "-h/--help" for getting started.');
+	console.log("");
+}
+/* sike - extends default settings.*/
 program.bells = (program.bells !== undefined && typeof(parseInt(program.bells, 10)) === "number") ? program.bells: defaults.bells;
-program.interval = (program.interval !== undefined) ? program.interval: defaults.interval;
 program.message = (program.message !== undefined) ? program.message: defaults.message;
 program.timeMessage = (program.timeMessage !== undefined) ? program.timeMessage: defaults.timeMessage;
-
-var prompt = function () {
-	for (var i = 0; i < program.bells; i++) {
-		console.log('\u0007');
-	};
-	console.log(program.message);
-}
 if (program.interval) {
-	var runner = setInterval(prompt, processInterval(program.interval));
+	var runner = setInterval(function() {
+		sikelog(program.message, true, program.dontShowTimestamp);
+	}, processTimeString(program.interval));
+	sikelog("set to prompt every " + program.interval, false, true);
 }
 if (program.duration) {
-	var duration = setTimeout(prompt, processInterval(program.duration));
+	var duration = setTimeout(function() {
+		sikelog(program.message, true, program.dontShowTimestamp);
+	}, processTimeString(program.duration));
+	sikelog("set to prompt in " + program.duration, false, true);
 }
 if (program.time) {
-	var now = moment();
-	var time = moment(program.time, "HH:mm");
-	setTimeout(prompt, time.diff(now));
+	var now = moment(),
+		time = moment(program.time, "HH:mm");
+	setTimeout(function() {
+		sikelog(program.timeMessage, true, program.dontShowTimestamp);
+	}, time.diff(now));
+	sikelog("set to prompt at " + program.time, false, true);
 }
