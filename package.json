@@ -1,0 +1,32 @@
+{
+  "name": "sike",
+  "description": "a cli app that reminds you to move around every once in a while!",
+  "version": "0.1.0",
+  "homepage": "http://jh3y.github.io/sike",
+  "author": {
+    "name": "jh3y",
+    "email": "jh3y@live.co.uk",
+    "url": "http://jh3y.github.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jh3y/sike.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jh3y/sike/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "preferGlobal": true,
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "commander": "^2.2.0",
+    "moment": "^2.6.0"
+  },
+  "keywords": []
+}
