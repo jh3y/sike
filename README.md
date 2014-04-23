@@ -19,8 +19,8 @@ and actually wanted to get something else done but now you've lost that time etc
 
 Also if you spend a lot of time rooted to one position it's not good for your body, you need to get up a move every once in a while. This could help if you suffer with joint issues or back pain, by simply just reminding you, "Hey get up and touch your toes for a second so you don't stiffen up!". Unfortunately I personally suffer some times with stiffness in my back and hips which can be quite painful and it's not helped by sitting at a desk for prolonged periods of time.
 
-##whose it for?
-sike is for those that spend a long time behind a screen or at a workstation and get stuck in the _zone_. It's also a handy schedule/reminder tool for those that spend a lot of time in the command line and don't want to burden themselves with flashy UIs to do such a simple thing.
+##who is it for?
+sike is for those that spend a long time behind a screen or at a workstation and get stuck in the _zone_. It's a handy scheduling/reminder tool for those that spend a lot of time in the command line and don't want to burden themselves with flashy UIs to do such a simple thing.
 
 ##example uses
 
@@ -41,7 +41,7 @@ Simply run,
 #### `-i, --interval [interval]`
 Sets alert interval. Accepts a string input defining hours, minutes and seconds or a combination. For example, `sike -i 1h10m` would set sike to alert you every one hour and ten minutes.
 #### `-d, --duration [duration]`
-Ssets duration until alert. Similarly to __interval__ accepts a time string. For example, `sike -d 45m` would set sike to alert you in forty five minutes one time. This is handy if you set yourself a task to complete in a certain amount of time.
+Sets duration until alert. Similarly to __interval__ accepts a time string. For example, `sike -d 45m` would set sike to alert you in forty five minutes one time. This is handy if you set yourself a task to complete in a certain amount of time.
 #### `-t, --time [time]`
 Sets alert time. This is used when you want sike to go off at a certain time and works on a 24 hour clock system. For example, `sike -t 18:30` would set sike to go off at six thirty pm.
 #### `-m, --message [message]`
