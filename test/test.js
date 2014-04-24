@@ -1,8 +1,32 @@
-// var assert = require('assert'),
-// 	sike = require('../lib/sike.js');
+(function() {
+  var assert, sike;
 
-// suite('sike', function() {
-//   test('sike should fail if wrong input', function() {
-//     assert.equal(11, sike({interval: "23r5t34t4"}));
-//   });
-// });
+  assert = require("assert");
+
+  sike = require("../lib/sike");
+
+  suite("sike", function() {
+    suite("create", function() {
+      test("should throw an error when empty options", function() {
+        assert.throws((function() {
+          var testSike;
+          testSike = sike.create();
+          testSike.initialize();
+        }), Error);
+      });
+      return test("should throw an error when interval is not set", function() {
+        assert.throws((function() {
+          var testSike;
+          testSike = sike.create({
+            interval: true,
+            duration: "1h"
+          });
+          testSike.initialize();
+        }), Error);
+      });
+    });
+  });
+
+  return;
+
+}).call(this);

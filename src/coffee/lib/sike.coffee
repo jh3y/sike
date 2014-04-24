@@ -21,16 +21,21 @@ sike = (options) ->
 	this.message = this.options.message;
 	this.timeMessage = this.options.timeMessage;
 	this.showTimestamp = if (this.options.dontShowTimestamp) then false else true
-	this.interval = this.options.interval
-	this.duration = this.options.duration
-	this.time = this.options.time
-	try 
-		this.initialize()
-	catch err
-		this.log err.toString(), false, false, true
+	if this.options.interval and ((typeof(this.options.interval) is "string") or (typeof(this.options.interval) is "number"))
+		this.interval = this.options.interval
+	else
+		throw new Error "no interval set!"
+	if this.options.duration and ((typeof(this.options.duration) is "string") or (typeof(this.options.duration) is "number"))
+		this.duration = this.options.duration
+	else
+		throw new Error "no interval set!"	
+	if this.options.time and ((typeof(this.options.time) is "string") or (typeof(this.options.time) is "number"))
+		this.time = this.options.time
+	else
+		throw new Error "no interval set!"
 	this
 
-sike::initialize = ->
+exports.initialize = sike::initialize = ->
 	sike = this
 	sike.sike = {}
 	opts = 
@@ -45,24 +50,22 @@ sike::initialize = ->
 				ms = time.diff(now)
 			else
 				try
-					ms = sike.processTimeString(sike[opt])
+					ms = sike.parseTstring(sike[opt])
 				catch err
 					this.log err.toString(), false, false, true
 			if opt is "interval"
 				sike.sike[opt] = setInterval(->
 					sike.log sike.message, true, sike.showTimestamp
 					return
-				, sike.processTimeString(sike[opt]))
+				, sike.parseTstring(sike[opt]))
 			else
 				sike.sike[opt] = setTimeout(->
 					sike.log sike.timeMessage, true, sike.showTimestamp
 					return
 				, ms)
 			sike.log opts[opt] + sike[opt], false, true
-		else if sike[opt]
-			throw new Error "no " + [opt] + " set!"
 
-sike::log = (msg, bells, timestamp, error) ->
+exports.log = sike::log = (msg, bells, timestamp, error) ->
 	playBells = (amount) ->
 		i = 0
 		while i < amount
@@ -80,7 +83,7 @@ sike::log = (msg, bells, timestamp, error) ->
 			console.log "[", "sike".magenta, "]", msg.cyan
 	return
 
-exports.processTimeString = sike::processTimeString = (timeString) ->
+exports.parseTstring = sike::parseTstring = (timeString) ->
 	time = 0
 	settings = {}
 	defaultUnit = "s"

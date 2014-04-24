@@ -2,10 +2,10 @@ var gulp = require('gulp'),
 	plumber = require('gulp-plumber'),
 	coffee = require('gulp-coffee'),
 	sources = {
-		coffee: "src/coffee/*.coffee"
+		coffee: "src/coffee/**/*.coffee"
 	},
 	destinations = {
-		build: "lib/"
+		build: ""
 	};
 /*WATCH COFFEE*/
 gulp.task('coffee:watch', function(event) {
