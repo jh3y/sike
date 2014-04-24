@@ -11,17 +11,30 @@
         assert.throws((function() {
           var testSike;
           testSike = sike.create();
-          testSike.initialize();
         }), Error);
       });
-      return test("should throw an error when interval is not set", function() {
+      test("should throw an error when interval flag is set without a value", function() {
         assert.throws((function() {
           var testSike;
           testSike = sike.create({
-            interval: true,
-            duration: "1h"
+            interval: true
           });
-          testSike.initialize();
+        }), Error);
+      });
+      test("should throw an error when duration flag is set without a value", function() {
+        assert.throws((function() {
+          var testSike;
+          testSike = sike.create({
+            duration: true
+          });
+        }), Error);
+      });
+      return test("should throw an error when time flag is set without a value", function() {
+        assert.throws((function() {
+          var testSike;
+          testSike = sike.create({
+            time: true
+          });
         }), Error);
       });
     });

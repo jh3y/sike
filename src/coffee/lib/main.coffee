@@ -43,7 +43,7 @@ introduce = ->
 introduce()
 
 if process.argv.length is 2
-	console.log "[", pkg.name.magenta, "]", "check out help with \"-h/--help\" for getting started.".blue
+	sike.log "check out help with \"-h / --help\" for gettting started.", false, false, false
 	console.log ""
 else
 	try
@@ -51,6 +51,10 @@ else
 			interval: program.interval
 			duration: program.duration
 			time: program.time
+			message: program.message
+			timeMessage: program.timeMessage
+			dontShowTimestamp: program.dontShowTimestamp
+			bells: program.bells
 		)
 		newSike.initialize()
 	catch err

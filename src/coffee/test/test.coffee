@@ -5,17 +5,30 @@ suite "sike", ->
 		test "should throw an error when empty options", ->
 			assert.throws (->
 				testSike = sike.create()
-				testSike.initialize()
 				return
 			), Error
 			return
-		test "should throw an error when interval is not set", ->
+		test "should throw an error when interval flag is set without a value", ->
 			assert.throws (->
 				testSike = sike.create (
 					interval: true
-					duration: "1h"
 				)
-				testSike.initialize()
+				return
+			), Error
+			return
+		test "should throw an error when duration flag is set without a value", ->
+			assert.throws (->
+				testSike = sike.create (
+					duration: true
+				)
+				return
+			), Error
+			return
+		test "should throw an error when time flag is set without a value", ->
+			assert.throws (->
+				testSike = sike.create (
+					time: true
+				)
 				return
 			), Error
 			return

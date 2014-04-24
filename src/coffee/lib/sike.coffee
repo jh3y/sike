@@ -1,69 +1,65 @@
 colors = require "colors"
 moment = require "moment"
 pkg = require "../package.json"
-
+	
 exports.create = (options) ->
 	return new sike options
 
 sike = (options) ->
-	this.defaults = 
+	sike = this
+	sike.defaults = 
 		bells: 2
 		message: "Get up and move around!"
 		timeMessage: "Time to move about!"
 		dontShowTimestamp: false
 	extend = (a, b) ->
 		for key of b
-			if b.hasOwnProperty(key)
+			if b.hasOwnProperty(key) and b[key] isnt undefined
 				a[key] = b[key]
 		a
-	this.options = extend(this.defaults, options)
-	this.bells = if (typeof(parseInt(this.options.bells, 10)) is "number") then this.options.bells else defaults.bells
-	this.message = this.options.message;
-	this.timeMessage = this.options.timeMessage;
-	this.showTimestamp = if (this.options.dontShowTimestamp) then false else true
-	if this.options.interval and ((typeof(this.options.interval) is "string") or (typeof(this.options.interval) is "number"))
-		this.interval = this.options.interval
-	else
-		throw new Error "no interval set!"
-	if this.options.duration and ((typeof(this.options.duration) is "string") or (typeof(this.options.duration) is "number"))
-		this.duration = this.options.duration
-	else
-		throw new Error "no interval set!"	
-	if this.options.time and ((typeof(this.options.time) is "string") or (typeof(this.options.time) is "number"))
-		this.time = this.options.time
-	else
-		throw new Error "no interval set!"
-	this
+	sike.options = extend(sike.defaults, options)
+	sike.bells = if (typeof(parseInt(sike.options.bells, 10)) is "number") then sike.options.bells else defaults.bells
+	sike.message = sike.options.message;
+	sike.timeMessage = sike.options.timeMessage;
+	sike.showTimestamp = if (sike.options.dontShowTimestamp) then false else true
+	for type of sike.types
+		if sike.options[type] and ((typeof(sike.options[type]) is "string") or (typeof(sike.options[type]) is "number"))
+			sike[type] = sike.options[type]
+		else if sike.options[type] isnt undefined
+			throw new Error "no " + type + " set!"
+	sike
+
+sike::types = 
+	interval: "set to prompt every "
+	duration: "set to promt in "
+	time: "set to prompt at "
 
 exports.initialize = sike::initialize = ->
 	sike = this
 	sike.sike = {}
-	opts = 
-		interval: "set to prompt every "
-		duration: "set to promt in "
-		time: "set to prompt at "
-	for opt of opts
-		if sike[opt] and (typeof (sike[opt]) is "string" or typeof (sike[opt]) is "number")
-			if opt is "time"
+	for type of sike.types
+		if sike[type] and (typeof (sike[type]) is "string" or typeof (sike[type]) is "number")
+			if type is "time"
 				now = moment()
 				time = moment(sike.time, "HH:mm")
 				ms = time.diff(now)
 			else
 				try
-					ms = sike.parseTstring(sike[opt])
+					ms = sike.parseTstring(sike[type])
 				catch err
 					this.log err.toString(), false, false, true
-			if opt is "interval"
-				sike.sike[opt] = setInterval(->
+			if type is "interval"
+				sike.sike[type] = setInterval(->
 					sike.log sike.message, true, sike.showTimestamp
 					return
-				, sike.parseTstring(sike[opt]))
+				, sike.parseTstring(sike[type]))
 			else
-				sike.sike[opt] = setTimeout(->
+				sike.sike[type] = setTimeout(->
 					sike.log sike.timeMessage, true, sike.showTimestamp
 					return
 				, ms)
-			sike.log opts[opt] + sike[opt], false, true
+			sike.log sike.types[type] + sike[type], false, true
+	sike
 
 exports.log = sike::log = (msg, bells, timestamp, error) ->
 	playBells = (amount) ->
