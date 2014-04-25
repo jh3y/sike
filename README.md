@@ -1,13 +1,14 @@
-sike
+sike 
 ===
+![alt tag](https://raw.githubusercontent.com/jh3y/sike/page-dev/src/files/images/sike.png)
 
-a cli app that reminds you to move around every once in a while!
+a cli tool that reminds you to move around every once in a while!
 
-
+```bash
 	sike -i 2h -m "Go grab a coffee! You've earnt it."
-
+```
 ##what is sike?
-sike is a node cli tool that alerts you at set intervals, a set duration or a set time to get up and be active for a few minutes with command line messages and the triggering of system sounds. 
+sike is a cli tool that alerts you at set intervals, a set duration or a set time to get up and be active for a few minutes with command line messages and the triggering of system sounds. 
 
 ##why sike?
  Sometimes, you find yourself getting stuck into some issue or feature implementation or any other thing really and before you know it hours have passed. You may have lost track of time and actually wanted to get something else done but now you've lost that time etc.
@@ -30,9 +31,9 @@ sike is for those that spend a long time behind a screen or at a workstation and
 It's assumed that you have `node` already installed.
 ###install
 Simply run,
-
+```bash
 	npm install -g sike
-
+```
 ###options
 
 #### `-i, --interval [interval]`
@@ -53,7 +54,7 @@ Set number of bells on alert. Accepts a number that defines the amount of bell c
 Show help.
 
 ###examples
-	
+```bash	
 	sike --interval 1h30m
 	sike -i 1h30m
 	sike --duration 1h
@@ -65,7 +66,7 @@ Show help.
 	sike -i 2h -m "Go grab a coffee"
 	sike --interval 45m --bells 2
 	sike -i 45m -b 2
-
+```
 ##under the hood
 sike is very lightweight and uses commander, colors and moment to provide its service.
 
