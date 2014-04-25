@@ -1,7 +1,7 @@
 {
   "name": "sike",
   "description": "a cli app that reminds you to move around every once in a while!",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "index.js",
   "homepage": "http://jh3y.github.io/sike",
   "author": {
