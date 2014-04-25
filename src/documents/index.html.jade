@@ -1,0 +1,64 @@
+---
+layout: default
+---
+header
+	.container
+		.row
+			.col-md-10.col-md-offset-1
+				h1.text-center sike
+				img.img-responsive(src="images/sike.png")
+				h2.text-center a cli tool that reminds you to get up and move around
+.page-content
+	.container
+		.row
+			.col-md-12
+				.col-md-6
+					h3.text-center install
+					pre
+						code npm install -g sike
+					h3.text-center what is sike?
+					p.
+						sike is a node cli tool that alerts you at set intervals, a set duration or a set time to get up and be active for a few minutes with command
+						line messages and the triggering of system sounds.
+					h3.text-center why sike?
+					p.
+						Sometimes, you find yourself getting stuck into some issue or feature implementation or any other thing really and before you know it
+						hours have passed. You may have lost track of time and actually wanted to get something else done but now you've lost that time etc.
+					p.
+						Also if you spend a lot of time rooted to one position it's not particularly good for your body, you need to get up a move every once in a
+						while. This could help if you suffer with joint issues or back pain, by simply just reminding you, "Hey get up and touch your toes for a
+						second so you don't stiffen up!".
+					p.
+						it's something that I personally find useful and maybe somebody else will.
+					h3.text-center who is it for?
+					p.
+						sike is for those that spend a long time behind a screen or at a workstation and get stuck in the zone. It's a handy scheduling/reminder
+						tool for those that spend a lot of time in the command line and don't want to burden themselves with flashy UIs to do such a simple thing.
+				.col-md-6
+					h3.text-center use cases
+					ul
+						li setting sike to tell you to get up and be active every hour or whatever interval you define.
+						li setting sike to remind you to get up and move about at a certain time of day.
+						li setting sike to tell you to get up and walk away in a certain amount of time.
+					h3.text-center examples
+					ul
+						li
+							p set sike to alert every one and a half hours.
+							pre
+								code sike -i 1h30m
+						li
+							p set sike to alert you in one hour.
+							pre
+								code sike --duration 1h
+						li
+							p set sike to alert you at a set time.
+							pre
+								code sike --time 18:20
+						li
+							p set sike to alert you with a specific message every two hours.
+							pre
+								code sike --interval 2h --message "Go grab a coffee"
+					.gbtns.text-center
+						iframe(src = "http://ghbtns.com/github-btn.html?user=jh3y&repo=sike&type=watch&count=true", allowtransparency="true", frameborder="0", scrolling="0", width="90px", height="20")
+						iframe(src = "http://ghbtns.com/github-btn.html?user=jh3y&repo=sike&type=fork&count=true", allowtransparency="true", frameborder="0", scrolling="0", width="90px", height="20")
+						iframe(src = "http://ghbtns.com/github-btn.html?user=jh3y&repo=sike&type=follow&count=true", allowtransparency="true", frameborder="0", scrolling="0", width="120px", height="20")

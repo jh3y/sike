@@ -1,43 +1,20 @@
 {
-  "name": "sike",
-  "description": "a cli app that reminds you to move around every once in a while!",
-  "version": "0.1.6",
-  "main": "index.js",
-  "homepage": "http://jh3y.github.io/sike",
-  "author": {
-    "name": "jh3y",
-    "email": "jh3y@users.noreply.github.com",
-    "url": "http://jh3y.github.io"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:jh3y/sike.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jh3y/sike/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT"
-    }
-  ],
-  "preferGlobal": true,
-  "bin": {
-    "sike": "./bin/sike"
-  },
+  "name": "sike page",
+  "version": "0.1.0",
+  "description": "page for sike.",
   "engines": {
-    "node": ">= 0.8.0"
+    "node": "0.10",
+    "npm": "1.3"
   },
   "dependencies": {
-    "commander": "^2.2.0",
-    "moment": "^2.6.0",
-    "colors": "^0.6.2"
+    "docpad": "~6.53.0",
+    "docpad-plugin-jade": "~2.6.0",
+    "docpad-plugin-less": "~2.2.0",
+    "docpad-plugin-livereload": "~2.5.3",
+    "docpad-plugin-ghpages": "^2.4.3"
   },
-  "keywords": [],
-  "devDependencies": {
-    "mocha": "^1.18.2",
-    "gulp": "^3.6.1",
-    "gulp-coffee": "^1.4.2",
-    "gulp-plumber": "^0.6.1"
+  "main": "node_modules/docpad/bin/docpad-server",
+  "scripts": {
+    "start": "node_modules/docpad/bin/docpad-server"
   }
 }
