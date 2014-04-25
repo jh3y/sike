@@ -47,7 +47,7 @@ if process.argv.length is 2
 	console.log ""
 else
 	try
-		newSike = sike.create(
+		newSike = new sike (
 			interval: program.interval
 			duration: program.duration
 			time: program.time

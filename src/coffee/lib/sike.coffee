@@ -2,10 +2,7 @@ colors = require "colors"
 moment = require "moment"
 pkg = require "../package.json"
 	
-exports.create = (options) ->
-	return new sike options
-
-sike = (options) ->
+exports = module.exports = sike = (options) ->
 	sike = this
 	sike.defaults = 
 		bells: 2
@@ -22,16 +19,17 @@ sike = (options) ->
 	sike.message = sike.options.message;
 	sike.timeMessage = sike.options.timeMessage;
 	sike.showTimestamp = if (sike.options.dontShowTimestamp) then false else true
+	if sike.options.interval is `undefined` and sike.options.duration is `undefined` and sike.options.time is `undefined`
+		throw new Error "no alert options set!"
 	for type of sike.types
 		if sike.options[type] and ((typeof(sike.options[type]) is "string") or (typeof(sike.options[type]) is "number"))
 			sike[type] = sike.options[type]
-		else if sike.options[type] is `undefined` or typeof(sike.options[type]) is "bool"
+		else if typeof(sike.options[type]) is "boolean"
 			throw new Error "no " + type + " set!"
 	sike
-
 sike::types = 
 	interval: "set to prompt every "
-	duration: "set to promp	t in "
+	duration: "set to prompt in "
 	time: "set to prompt at "
 
 exports.initialize = sike::initialize = ->
