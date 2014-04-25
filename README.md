@@ -7,17 +7,14 @@ a cli app that reminds you to move around every once in a while!
 	sike -i 2h -m "Go grab a coffee! You've earnt it."
 
 ##what is sike?
-sike is a node cli tool that alerts you at set intervals, a set duration or a set time to get up and be active for a few minutes.
-
-It can also be used as a quick reminder tool.
+sike is a node cli tool that alerts you at set intervals, a set duration or a set time to get up and be active for a few minutes with command line messages and the triggering of system sounds. 
 
 ##why sike?
-It is the first node app that I've published and I have written it for myself because it's an issue I personally have and I feel like it could help me out.
+ Sometimes, you find yourself getting stuck into some issue or feature implementation or any other thing really and before you know it hours have passed. You may have lost track of time and actually wanted to get something else done but now you've lost that time etc.
 
-Sometimes, you find yourself getting stuck into some issue or feature implementation or any other thing really and before you know it hours have passed. You may have lost track of time
-and actually wanted to get something else done but now you've lost that time etc.
+Also if you spend a lot of time rooted to one position it's not particularly good for your body, you need to get up a move every once in a while. A little reminder could help you out.
 
-Also if you spend a lot of time rooted to one position it's not good for your body, you need to get up a move every once in a while. This could help if you suffer with joint issues or back pain, by simply just reminding you, "Hey get up and touch your toes for a second so you don't stiffen up!". Unfortunately I personally suffer some times with stiffness in my back and hips which can be quite painful and it's not helped by sitting at a desk for prolonged periods of time.
+It's something that I personally find useful and maybe somebody else will.
 
 ##who is it for?
 sike is for those that spend a long time behind a screen or at a workstation and get stuck in the _zone_. It's a handy scheduling/reminder tool for those that spend a lot of time in the command line and don't want to burden themselves with flashy UIs to do such a simple thing.
@@ -70,7 +67,7 @@ Show help.
 	sike -i 45m -b 2
 
 ##under the hood
-sike is very lightweight and just uses commander, colors and moment to provide its service.
+sike is very lightweight and uses commander, colors and moment to provide its service.
 
 ##contributing
 As sike is in its infancy, any input and suggestions are much appreciated. If this is a tool you think you could find useful, please let me know how it could be improved. For me personally, the interval option is the most useful but others might want a different option or more logging provided. So, please post an issue if you have anything!
