@@ -1,0 +1,24 @@
+body {
+  overflow-y: scroll;
+  background-color: #27AE60;
+  font-weight: 300;
+  color: #FFF;
+  font-size: 16px;
+}
+pre {
+  background-color: #333;
+  color: #E74C3C;
+}
+h1 {
+  font-size: 120px;
+}
+img {
+  width: 500px;
+  margin: 40px auto;
+}
+a {
+  color: #E74C3C;
+}
+.gbtns {
+  padding: 40px 0 40px 0;
+}
