@@ -25,13 +25,13 @@ sike = (options) ->
 	for type of sike.types
 		if sike.options[type] and ((typeof(sike.options[type]) is "string") or (typeof(sike.options[type]) is "number"))
 			sike[type] = sike.options[type]
-		else if sike.options[type] isnt undefined
+		else if sike.options[type] is `undefined` or typeof(sike.options[type]) is "bool"
 			throw new Error "no " + type + " set!"
 	sike
 
 sike::types = 
 	interval: "set to prompt every "
-	duration: "set to promt in "
+	duration: "set to promp	t in "
 	time: "set to prompt at "
 
 exports.initialize = sike::initialize = ->
@@ -39,26 +39,26 @@ exports.initialize = sike::initialize = ->
 	sike.sike = {}
 	for type of sike.types
 		if sike[type] and (typeof (sike[type]) is "string" or typeof (sike[type]) is "number")
-			if type is "time"
-				now = moment()
-				time = moment(sike.time, "HH:mm")
-				ms = time.diff(now)
-			else
-				try
-					ms = sike.parseTstring(sike[type])
-				catch err
-					this.log err.toString(), false, false, true
-			if type is "interval"
-				sike.sike[type] = setInterval(->
-					sike.log sike.message, true, sike.showTimestamp
-					return
-				, sike.parseTstring(sike[type]))
-			else
-				sike.sike[type] = setTimeout(->
-					sike.log sike.timeMessage, true, sike.showTimestamp
-					return
-				, ms)
-			sike.log sike.types[type] + sike[type], false, true
+			try
+				if type is "time"
+					now = moment()
+					time = moment(sike.time, "HH:mm")
+					ms = time.diff(now)
+				else	
+					ms = sike.parseTime(sike[type])
+				if type is "interval"
+					sike.sike[type] = setInterval(->
+						sike.log sike.message, true, sike.showTimestamp
+						return
+					, ms)
+				else
+					sike.sike[type] = setTimeout(->
+						sike.log sike.timeMessage, true, sike.showTimestamp
+						return
+					, ms)
+				sike.log sike.types[type] + sike[type], false, true
+			catch err
+				this.log err.toString(), false, false, true
 	sike
 
 exports.log = sike::log = (msg, bells, timestamp, error) ->
@@ -79,28 +79,26 @@ exports.log = sike::log = (msg, bells, timestamp, error) ->
 			console.log "[", "sike".magenta, "]", msg.cyan
 	return
 
-exports.parseTstring = sike::parseTstring = (timeString) ->
+exports.parseTime = sike::parseTime = (timeString) ->
 	time = 0
 	settings = {}
 	defaultUnit = "s"
 	units =
-		hours: /(\d*)h/
-		minutes: /h*(\d*)m/
-		seconds: /m*(\d*)s/
-
-	if timeString.indexOf("h") is -1 and timeString.indexOf("m") is -1 and timeString.indexOf("s") is -1
-		timeString += defaultUnit
-	for unit of units
-		if timeString.indexOf(unit.substr(0,1)) isnt -1
-			settings[unit] = if timeString.match(units[unit])[1] isnt null then parseInt(timeString.match(units[unit])[1], 10) else false
-			if settings[unit] and typeof(settings[unit]) is "number"				
-				switch unit
-					when "hours"
-						time = time + (settings.hours * 3600000)
-					when "minutes"
-						time = time + (settings.minutes * 60000)
-					when "seconds"
-						time = time + (settings.seconds * 1000)
-			else
-				throw new Error 'invalid time string'
+		hours: /\d*(?=h)/
+		minutes: /\d*(?=m)/
+		seconds: /\d*(?=s)/
+	if timeString isnt `undefined` and timeString isnt null and timeString.match(/[^hms0-9]|h{2,}|m{2,}|s{2,}/) is null and timeString.match(/h|m|s/) isnt null and timeString.match(/[hms]$/) isnt null
+		for unit of units
+			if timeString.indexOf(unit.substr(0,1)) isnt -1
+				settings[unit] = if timeString.match(units[unit])[0] isnt null then parseInt(timeString.match(units[unit])[0], 10) else false
+				if settings[unit] and typeof(settings[unit]) is "number"				
+					switch unit
+						when "hours"
+							time = time + (settings.hours * 3600000)
+						when "minutes"
+							time = time + (settings.minutes * 60000)
+						when "seconds"
+							time = time + (settings.seconds * 1000)
+	else
+		throw new Error "invalid time string: " + timeString 
 	time
