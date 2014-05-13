@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/jh3y/sike/issues"
   },
+  "scripts": {
+    "test": "make test"
+  },
   "licenses": [
     {
       "type": "MIT"
