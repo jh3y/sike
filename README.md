@@ -1,3 +1,5 @@
+ [![Build Status](https://secure.travis-ci.org/jh3y/sike.png)](http://travis-ci.org/jh3y/sike)
+
 sike 
 ===
 ![alt tag](https://raw.githubusercontent.com/jh3y/sike/page-dev/src/files/images/sike.png)
